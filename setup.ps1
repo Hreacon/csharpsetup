@@ -87,8 +87,8 @@ $file = $project + "Test.cs"
 cd ..
 
 git init
-git --config user.name $pair1 + " and " + $pair2
-git --config user.email "student@epicodus.com"
+git config user.name $pair1 + " and " + $pair2
+git config user.email "student@epicodus.com"
 git add .
 git commit -m "Initial Commit"
 
