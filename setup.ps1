@@ -7,25 +7,27 @@ $pair1 = "Nicholas Jensen"
 
 # Make directory structure
 cd ..
-mkdir $project
-cd $project
-mkdir Content
-mkdir Modules
-mkdir Views
-mkdir Objects
-mkdir Tests
+mkdir $project | Out-Null
+cd $project  | Out-Null
+mkdir Content  | Out-Null
+mkdir Content/css | Out-Null
+mkdir Content/js | Out-Null
+mkdir Modules  | Out-Null
+mkdir Views  | Out-Null
+mkdir Objects  | Out-Null
+mkdir Tests  | Out-Null
 
 # Copy unchanging files
-copy ..\csharpsetup\cp\main\* .
-copy ..\csharpsetup\cp\Views\* .\Views\
-copy ..\csharpsetup\cp\Content\css\* .\Content\css\
-copy ..\csharpsetup\cp\Content\js\* .\Content\js\
+copy ..\csharpsetup\cp\main\* . | Out-Null
+copy ..\csharpsetup\cp\Views\* .\Views\ | Out-Null
+copy ..\csharpsetup\cp\Content\css\* .\Content\css\ | Out-Null
+copy ..\csharpsetup\cp\Content\js\* .\Content\js\ | Out-Null
 
 # write files that need the project name in them
 
 # HomeModule.cs
 $file = "HomeModule.cs"
-cd Modules
+cd Modules | Out-Null
 "using Nancy;" | Add-Content $file
 "using "+$project + "NS.Objects;" | Add-Content $file
 "using System.Collections.Generic;" | Add-Content $file
@@ -36,17 +38,17 @@ cd Modules
 "  {" | Add-Content $file
 "    public HomeModule()" | Add-Content $file
 "    {" | Add-Content $file
-"      Get["/"] = _ => {" | Add-Content $file
+'      Get["/"] = _ => {' | Add-Content $file
 '        return View["header.cshtml"];' | Add-Content $file
 "      };" | Add-Content $file
 "    }" | Add-Content $file
 "  }" | Add-Content $file
 "}" | Add-Content $file
-cd ..
+cd .. | Out-Null
 
 
 # Object.cs
-cd Objects
+cd Objects | Out-Null
 $file = $project + ".cs"
 "using System.Collections.Generic;" | Add-Content $file
 "using System;" | Add-Content $file
@@ -60,9 +62,9 @@ $file = $project + ".cs"
 "    }" | Add-Content $file
 "  } // end class" | Add-Content $file
 "} // end namespace" | Add-Content $file
-cd ..
+cd .. | Out-Null
 
-cd Tests
+cd Tests | Out-Null
 # ObjectTest.cs
 $file = $project + "Test.cs"
 "using Xunit;" | Add-Content $file
@@ -86,10 +88,10 @@ $file = $project + "Test.cs"
 "}" | Add-Content $file
 cd ..
 
-git init
-git config user.name $pair1 + " and " + $pair2
-git config user.email "student@epicodus.com"
-git add .
-git commit -m "Initial Commit"
+git init | Out-Null
+git config user.name "$pair1 and $pair2" | Out-Null
+git config user.email "student@epicodus.com" | Out-Null
+git add . | Out-Null
+git commit -m "Initial Commit" | Out-Null
 
 atom .
