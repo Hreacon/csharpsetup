@@ -95,3 +95,7 @@ git add . | Out-Null
 git commit -m "Initial Commit" | Out-Null
 
 atom .
+
+dnvm upgrade
+dnu restore
+.\bdd.ps1
