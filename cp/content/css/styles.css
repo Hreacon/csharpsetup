@@ -1,0 +1,62 @@
+form {
+  width:70%;
+  margin:auto;
+}
+
+label, input {
+  display: inline-block;
+}
+label {
+  width:29%;
+}
+input {
+  width:70%;
+}
+[type=submit] {
+  width:100%;
+}
+
+.link {
+  padding:10px;
+  background:lightgray;
+  display: block;
+  margin: 20px;
+  border:1px solid black;
+  color:black;
+  text-decoration: none;
+  text-align: center;
+  border-radius:10px;
+}
+
+.link:hover {
+  color:white;
+  background: black;
+}
+
+.chessboard {
+  display: block;
+  width: 800px;
+  height:800px;
+  border:1px solid black;
+}
+.chessboard a {
+  display: block;
+  width:100px;
+  height:100px;
+  float:left;
+}
+
+.odd:nth-child(even) {
+  background: black;
+}
+.even:nth-child(odd) {
+  background: black;
+}
+
+.chessboard a:hover {
+  background: green;
+}
+
+.chessboard .queen {
+  background:green;
+}
