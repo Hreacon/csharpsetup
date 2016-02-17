@@ -32,31 +32,3 @@ input {
   color:white;
   background: black;
 }
-
-.chessboard {
-  display: block;
-  width: 800px;
-  height:800px;
-  border:1px solid black;
-}
-.chessboard a {
-  display: block;
-  width:100px;
-  height:100px;
-  float:left;
-}
-
-.odd:nth-child(even) {
-  background: black;
-}
-.even:nth-child(odd) {
-  background: black;
-}
-
-.chessboard a:hover {
-  background: green;
-}
-
-.chessboard .queen {
-  background:green;
-}
