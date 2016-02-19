@@ -94,8 +94,9 @@ git config user.email "student@epicodus.com" | Out-Null
 git add . | Out-Null
 git commit -m "Initial Commit" | Out-Null
 
+Write-Host "Please start working in atom. Running DNU Restore momentarily."
+
 atom .
 
 dnvm upgrade
 dnu restore
-.\bdd.ps1
