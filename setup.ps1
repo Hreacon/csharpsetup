@@ -96,7 +96,10 @@ git commit -m "Initial Commit" | Out-Null
 
 Write-Host "Please start working in atom. Running DNU Restore momentarily."
 
-atom .
+if(Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe")
+    code .
+else
+    atom .
 
 dnvm upgrade
 dnu restore
