@@ -119,7 +119,7 @@ $file = "Startup.cs"
 'using Nancy.ViewEngines.Razor;' | Add-Content $file
 'using System.Collections.Generic;' | Add-Content $file
 '' | Add-Content $file
-'namespace $project'+'NS' | Add-Content $file
+'namespace '+$project+'NS' | Add-Content $file
 '{' | Add-Content $file
 '  public class Startup' | Add-Content $file
 '  {' | Add-Content $file
