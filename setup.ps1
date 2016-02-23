@@ -54,7 +54,9 @@ cd Objects | Out-Null
 $file = $project + ".cs"
 "using System.Collections.Generic;" | Add-Content $file
 "using System;" | Add-Content $file
-
+'using System.Data;' | Add-Content $file
+'using System.Data.SqlClient;' | Add-Content $file
+'' | Add-Content $file
 "namespace "+$project + "NS.Objects" | Add-Content $file
 "{" | Add-Content $file
 "  public class "+$project + "" | Add-Content $file
@@ -88,7 +90,11 @@ cd Tests | Out-Null
 $file = $project + "Test.cs"
 "using Xunit;" | Add-Content $file
 "using "+$project+"NS.Objects;" | Add-Content $file
-
+'using System.Collections.Generic;' | Add-Content $file
+'using System;' | Add-Content $file
+'using System.Data;' | Add-Content $file
+'using System.Data.SqlClient;' | Add-Content $file
+'' | Add-Content $file
 "namespace "+$project+"NS" | Add-Content $file
 "{" | Add-Content $file
 "  public class "+$project+"Test : IDisposable" | Add-Content $file
@@ -145,10 +151,10 @@ $file = "Startup.cs"
 '    {' | Add-Content $file
 '      get { return false; }' | Add-Content $file
 '    }' | Add-Content $file
-'    public static class DBConfiguration' | Add-Content $file
-'    {' | Add-Content $file
-'        public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+';Integrated Security=SSPI;";' | Add-Content $file
-'    }' | Add-Content $file
+'  }' | Add-Content $file
+'  public static class DBConfiguration' | Add-Content $file
+'  {' | Add-Content $file
+'      public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+';Integrated Security=SSPI;";' | Add-Content $file
 '  }' | Add-Content $file
 '}' | Add-Content $file
 
