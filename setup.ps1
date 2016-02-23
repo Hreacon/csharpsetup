@@ -4,6 +4,8 @@ $project = Read-Host
 Write-Host "Please enter pairs name"
 $pair2 = Read-Host
 $pair1 = "Nicholas Jensen"
+Write-Host "Please enter database name"
+$database = Read-Host
 
 # Make directory structure
 cd ..
@@ -62,6 +64,23 @@ $file = $project + ".cs"
 "    }" | Add-Content $file
 "  } // end class" | Add-Content $file
 "} // end namespace" | Add-Content $file
+
+#Database.cs
+$file = "Database.cs"
+'using System.Data;' | Add-Content $file
+'using System.Data.SqlClient;' | Add-Content $file
+'' | Add-Content $file
+'namespace ' + $project + 'NS' | Add-Content $file
+'{' | Add-Content $file  
+'  public class DB' | Add-Content $file
+'  {' | Add-Content $file
+'    public static SqlConnection Connection()' | Add-Content $file
+'    {' | Add-Content $file
+'      SqlConnection conn = new SqlConnection(DBConfiguration.ConnectionString);' | Add-Content $file
+'      return conn;' | Add-Content $file
+'    }' | Add-Content $file
+'  }' | Add-Content $file
+'}' | Add-Content $file
 cd .. | Out-Null
 
 cd Tests | Out-Null
@@ -86,7 +105,54 @@ $file = $project + "Test.cs"
 "    /**/" | Add-Content $file
 "  }" | Add-Content $file
 "}" | Add-Content $file
-cd ..
+cd .. | Out-Null
+
+$file = "Startup.cs"
+'using System.IO;' | Add-Content $file
+'using Microsoft.AspNet.Builder;' | Add-Content $file
+'using Nancy.Owin;' | Add-Content $file
+'using Nancy;' | Add-Content $file
+'using Nancy.ViewEngines.Razor;' | Add-Content $file
+'using System.Collections.Generic;' | Add-Content $file
+'' | Add-Content $file
+'namespace StartupNS' | Add-Content $file
+'{' | Add-Content $file
+'  public class Startup' | Add-Content $file
+'  {' | Add-Content $file
+'    public void Configure(IApplicationBuilder app)' | Add-Content $file
+'    {' | Add-Content $file
+'      app.UseOwin(x => x.UseNancy());' | Add-Content $file
+'    }' | Add-Content $file
+'  }' | Add-Content $file
+'  public class CustomRootPathProvider : IRootPathProvider' | Add-Content $file
+'  {' | Add-Content $file
+'    public string GetRootPath()' | Add-Content $file
+'    {' | Add-Content $file
+'      return Directory.GetCurrentDirectory();' | Add-Content $file
+'    }' | Add-Content $file
+'  }' | Add-Content $file
+'  public class RazorConfig : IRazorConfiguration' | Add-Content $file
+'  {' | Add-Content $file
+'    public IEnumerable<string> GetAssemblyNames()' | Add-Content $file
+'    {' | Add-Content $file
+'      return null;' | Add-Content $file
+'    }' | Add-Content $file
+'' | Add-Content $file
+'    public IEnumerable<string> GetDefaultNamespaces()' | Add-Content $file
+'    {' | Add-Content $file
+'      return null;' | Add-Content $file
+'    }' | Add-Content $file
+'' | Add-Content $file
+'    public bool AutoIncludeModelNamespace' | Add-Content $file
+'    {' | Add-Content $file
+'      get { return false; }' | Add-Content $file
+'    }' | Add-Content $file
+'    public static class DBConfiguration' | Add-Content $file
+'    {' | Add-Content $file
+'        public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+';Integrated Security=SSPI;";' | Add-Content $file
+'    }' | Add-Content $file
+'  }' | Add-Content $file
+}
 
 git init | Out-Null
 git config user.name "$pair1 and $pair2" | Out-Null
