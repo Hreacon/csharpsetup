@@ -153,20 +153,30 @@ $file = "Startup.cs"
 '}' | Add-Content $file
 
 git init | Out-Null
-git config user.name "$pair1 and $pair2" | Out-Null
-git config user.email "student@epicodus.com" | Out-Null
+if($pair2 == "self")
+{
+  $name = "Nicholas Jensen-Hay"
+  $email = "nicholasjensenhay@gmail.com"
+} else {
+  $name = "$pair1 and $pair2"
+  $email = "student@epicodus.com"
+}
+git config user.name $name | Out-Null
+git config user.email $email | Out-Null
 git add . | Out-Null
 git commit -m "Initial Commit" | Out-Null
-
-Write-Host "Please start working in atom. Running DNU Restore in the background."
 
 if(Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe")  {
   mkdir .vscode
   copy ..\csharpsetup\cp\vscode\* .\.vscode\
   code .
+  $editor = "Visual Studio Code"
 } else {
+  $editor = "Atom"
     atom .
 }
+Write-Host "Please start working in $editor. Running DNU Restore in the background."
+
 
 Write-Host "dnvm upgrade"
 dnvm upgrade | Out-Null
