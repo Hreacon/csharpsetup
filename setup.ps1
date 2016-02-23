@@ -152,7 +152,7 @@ $file = "Startup.cs"
 '        public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+';Integrated Security=SSPI;";' | Add-Content $file
 '    }' | Add-Content $file
 '  }' | Add-Content $file
-}
+'}' | Add-Content $file
 
 git init | Out-Null
 git config user.name "$pair1 and $pair2" | Out-Null
@@ -160,12 +160,17 @@ git config user.email "student@epicodus.com" | Out-Null
 git add . | Out-Null
 git commit -m "Initial Commit" | Out-Null
 
-Write-Host "Please start working in atom. Running DNU Restore momentarily."
+Write-Host "Please start working in atom. Running DNU Restore in the background."
 
-if(Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe")
+if(Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe")  {
     code .
-else
+} else {
     atom .
+}
 
-dnvm upgrade
-dnu restore
+Write-Host "dnvm upgrade"
+dnvm upgrade | Out-Null
+Write-Host "dnvm upgrade complete."
+Write-Host "dnu restore... please wait"
+dnu restore | Out-Null
+Write-Host "dnu restore complete."
