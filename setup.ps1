@@ -91,18 +91,16 @@ $file = $project + "Test.cs"
 
 "namespace "+$project+"NS" | Add-Content $file
 "{" | Add-Content $file
-"  public class "+$project+"Test" | Add-Content $file
+"  public class "+$project+"Test : IDisposable" | Add-Content $file
 "  {" | Add-Content $file
-"    /* EXAMPLE" | Add-Content $file
-"    // Have a queen object that knows what coordinants its at" | Add-Content $file
-"    [Fact]" | Add-Content $file
-"    public void QueenAttack_ForCoordinants_SeeCoordinants()" | Add-Content $file
-"    {" | Add-Content $file
-"      QueenAttack queen = new QueenAttack(8, 2);" | Add-Content $file
-"      Assert.Equal(8, queen.GetX());" | Add-Content $file
-"      Assert.Equal(2, queen.GetY());" | Add-Content $file
-"    }" | Add-Content $file
-"    /**/" | Add-Content $file
+"     public "+$project+"Test()" | Add-Content $file
+"     {" | Add-Content $file
+'       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+'_test;Integrated Security=SSPI;";' | Add-Content $file
+"     }" | Add-Content $file
+"     public void Dispose()" | Add-Content $file
+"     {" | Add-Content $file
+"       "+$project+".DeleteAll();" | Add-Content $file
+"     }" | Add-Content $file
 "  }" | Add-Content $file
 "}" | Add-Content $file
 cd .. | Out-Null
@@ -163,7 +161,9 @@ git commit -m "Initial Commit" | Out-Null
 Write-Host "Please start working in atom. Running DNU Restore in the background."
 
 if(Test-Path "C:\Program Files (x86)\Microsoft VS Code\Code.exe")  {
-    code .
+  mkdir .vscode
+  copy ..\csharpsetup\cp\vscode\* .\.vscode\
+  code .
 } else {
     atom .
 }
@@ -174,3 +174,7 @@ Write-Host "dnvm upgrade complete."
 Write-Host "dnu restore... please wait"
 dnu restore | Out-Null
 Write-Host "dnu restore complete."
+
+Write-Host "Adding sql alias"
+function openSql {sqlcmd -S "(localdb)\mssqllocaldb"}
+New-Alias sql openSql
