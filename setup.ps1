@@ -159,7 +159,7 @@ $file = "Startup.cs"
 '}' | Add-Content $file
 
 git init | Out-Null
-if($pair2 == "self")
+if($pair2 -eq "self")
 {
   $name = "Nicholas Jensen-Hay"
   $email = "nicholasjensenhay@gmail.com"
