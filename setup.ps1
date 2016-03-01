@@ -1,6 +1,8 @@
 clear
 Write-Host "Please enter a project name"
 $project = Read-Host
+Write-Host "What is the name of the first object?"
+$object = Read-Host
 Write-Host "Please enter pairs name"
 $pair2 = Read-Host
 $pair1 = "Nicholas Jensen"
@@ -24,6 +26,7 @@ copy ..\csharpsetup\cp\main\* . | Out-Null
 copy ..\csharpsetup\cp\Views\* .\Views\ | Out-Null
 copy ..\csharpsetup\cp\Content\css\* .\Content\css\ | Out-Null
 copy ..\csharpsetup\cp\Content\js\* .\Content\js\ | Out-Null
+copy ..\csharpsetup\cp\Objects\* .\Objects\ | Out-Null
 
 # write files that need the project name in them
 
@@ -51,17 +54,18 @@ cd .. | Out-Null
 
 # Object.cs
 cd Objects | Out-Null
-$file = $project + ".cs"
+$file = $object + ".cs"
 "using System.Collections.Generic;" | Add-Content $file
 "using System;" | Add-Content $file
 'using System.Data;' | Add-Content $file
 'using System.Data.SqlClient;' | Add-Content $file
+'using JensenNS.Objects;' | Add-Content $file
 '' | Add-Content $file
 "namespace "+$project + "NS.Objects" | Add-Content $file
 "{" | Add-Content $file
-"  public class "+$project + "" | Add-Content $file
+"  public class "+$object + " : DBHandler" | Add-Content $file
 "  {" | Add-Content $file
-"    public "+$project + "()" | Add-Content $file
+"    public "+$object + "()" | Add-Content $file
 "    {" | Add-Content $file
 "    }" | Add-Content $file
 "  } // end class" | Add-Content $file
@@ -73,7 +77,7 @@ $file = "Database.cs"
 'using System.Data.SqlClient;' | Add-Content $file
 '' | Add-Content $file
 'namespace ' + $project + 'NS' | Add-Content $file
-'{' | Add-Content $file  
+'{' | Add-Content $file
 '  public class DB' | Add-Content $file
 '  {' | Add-Content $file
 '    public static SqlConnection Connection()' | Add-Content $file
@@ -97,9 +101,9 @@ $file = $project + "Test.cs"
 '' | Add-Content $file
 "namespace "+$project+"NS" | Add-Content $file
 "{" | Add-Content $file
-"  public class "+$project+"Test : IDisposable" | Add-Content $file
+"  public class "+$object+"Test : IDisposable" | Add-Content $file
 "  {" | Add-Content $file
-"     public "+$project+"Test()" | Add-Content $file
+"     public "+$object+"Test()" | Add-Content $file
 "     {" | Add-Content $file
 '       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+'_test;Integrated Security=SSPI;";' | Add-Content $file
 "     }" | Add-Content $file
