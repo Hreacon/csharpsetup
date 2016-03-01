@@ -28,6 +28,10 @@ copy ..\csharpsetup\cp\Content\css\* .\Content\css\ | Out-Null
 copy ..\csharpsetup\cp\Content\js\* .\Content\js\ | Out-Null
 copy ..\csharpsetup\cp\Objects\* .\Objects\ | Out-Null
 
+Write-Host "Adding sql alias"
+function openSql {sqlcmd -S "(localdb)\mssqllocaldb"}
+New-Alias sql openSql
+
 # write files that need the project name in them
 
 # HomeModule.cs
@@ -59,7 +63,7 @@ $file = $object + ".cs"
 "using System;" | Add-Content $file
 'using System.Data;' | Add-Content $file
 'using System.Data.SqlClient;' | Add-Content $file
-'using JensenNS.Objects;' | Add-Content $file
+"using JensenNS.Objects;" | Add-Content $file
 '' | Add-Content $file
 "namespace "+$project + "NS.Objects" | Add-Content $file
 "{" | Add-Content $file
@@ -101,15 +105,15 @@ $file = $project + "Test.cs"
 '' | Add-Content $file
 "namespace "+$project+"NS" | Add-Content $file
 "{" | Add-Content $file
-"  public class "+$object+"Test : IDisposable" | Add-Content $file
+"  public class "+$object + "Test : IDisposable" | Add-Content $file
 "  {" | Add-Content $file
-"     public "+$object+"Test()" | Add-Content $file
+"     public "+$object + "Test()" | Add-Content $file
 "     {" | Add-Content $file
 '       DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog='+$database+'_test;Integrated Security=SSPI;";' | Add-Content $file
 "     }" | Add-Content $file
 "     public void Dispose()" | Add-Content $file
 "     {" | Add-Content $file
-"       "+$project+".DeleteAll();" | Add-Content $file
+"       "+$project +".DeleteAll();" | Add-Content $file
 "     }" | Add-Content $file
 "  }" | Add-Content $file
 "}" | Add-Content $file
@@ -194,7 +198,3 @@ Write-Host "dnvm upgrade complete."
 Write-Host "dnu restore... please wait"
 dnu restore | Out-Null
 Write-Host "dnu restore complete."
-
-Write-Host "Adding sql alias"
-function openSql {sqlcmd -S "(localdb)\mssqllocaldb"}
-New-Alias sql openSql
