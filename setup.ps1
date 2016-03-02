@@ -118,7 +118,7 @@ $file = $project + "Test.cs"
 "     }" | Add-Content $file
 "     public void Dispose()" | Add-Content $file
 "     {" | Add-Content $file
-"       "+$project +".DeleteAll();" | Add-Content $file
+"       "+$object +".DeleteAll();" | Add-Content $file
 "     }" | Add-Content $file
 "  }" | Add-Content $file
 "}" | Add-Content $file
