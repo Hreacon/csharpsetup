@@ -8,6 +8,8 @@ $pair2 = Read-Host
 $pair1 = "Nicholas Jensen"
 Write-Host "Please enter database name"
 $database = Read-Host
+$path = (Get-Item -Path ".\\" -Verbose).FullName
+$env:Path = $env:Path + ";" + $path
 
 # Make directory structure
 cd ..
@@ -22,15 +24,15 @@ mkdir Objects  | Out-Null
 mkdir Tests  | Out-Null
 
 # Copy unchanging files
-copy ..\csharpsetup\cp\main\* . | Out-Null
-copy ..\csharpsetup\cp\Views\* .\Views\ | Out-Null
-copy ..\csharpsetup\cp\Content\css\* .\Content\css\ | Out-Null
-copy ..\csharpsetup\cp\Content\js\* .\Content\js\ | Out-Null
-copy ..\csharpsetup\cp\Objects\* .\Objects\ | Out-Null
+copy $path\cp\main\* . | Out-Null
+copy $path\cp\Views\* .\Views\ | Out-Null
+copy $path\cp\Content\css\* .\Content\css\ | Out-Null
+copy $path\cp\Content\js\* .\Content\js\ | Out-Null
+copy $path\cp\Objects\* .\Objects\ | Out-Null
 
 Write-Host "Adding sql alias"
-function openSql {sqlcmd -S "(localdb)\mssqllocaldb"}
-New-Alias sql openSql
+function sql {sqlcmd -S "(localdb)\mssqllocaldb"}
+New-Alias sql .\sql.ps1
 
 # write files that need the project name in them
 
