@@ -88,8 +88,12 @@ namespace JensenNS.Objects
     protected static void Delete(string table, int id)
     {
       string query = "DELETE FROM "+table+" WHERE id = @id";
-      SqlDataReader rdr = DBHandler.DatabaseOperation(query, new List<SqlParameter> { new SqlParameter("@id", id)});
+      SqlDataReader rdr = DBHandler.DatabaseOperation(query, new SqlParameter("@id", id));
       DBHandler.DatabaseCleanup(rdr, _conn);
+    }
+    protected static SqlDataReader DatabaseOperation(string query, SqlParameter parameter = null)
+    {
+      return DBHandler.DatabaseOperation(query, new List<SqlParameter> { parameter });
     }
     protected static SqlDataReader DatabaseOperation(string query, List<SqlParameter> parameters = null)
     {
