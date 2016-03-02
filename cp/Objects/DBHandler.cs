@@ -95,7 +95,7 @@ namespace JensenNS.Objects
       SqlDataReader rdr = DBHandler.DatabaseOperation(query, new SqlParameter("@id", id));
       DBHandler.DatabaseCleanup(rdr, _conn);
     }
-    protected static SqlDataReader DatabaseOperation(string query, SqlParameter parameter = null)
+    protected static SqlDataReader DatabaseOperation(string query, SqlParameter parameter)
     {
       return DBHandler.DatabaseOperation(query, new List<SqlParameter> { parameter });
     }

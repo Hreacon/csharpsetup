@@ -9,7 +9,7 @@ $pair1 = "Nicholas Jensen"
 Write-Host "Please enter database name"
 $database = Read-Host
 $path = (Get-Item -Path ".\\" -Verbose).FullName
-$env:Path = $env:Path + ";" + $path
+$env:Path = $env:Path + ";" + $path + "\commands"
 
 # Make directory structure
 cd ..
@@ -28,7 +28,6 @@ copy $path\cp\main\* . | Out-Null
 copy $path\cp\Views\* .\Views\ | Out-Null
 copy $path\cp\Content\css\* .\Content\css\ | Out-Null
 copy $path\cp\Content\js\* .\Content\js\ | Out-Null
-copy $path\cp\Objects\* .\Objects\ | Out-Null
 
 Write-Host "Adding sql alias"
 function sql {sqlcmd -S "(localdb)\mssqllocaldb"}
@@ -93,6 +92,10 @@ $file = "Database.cs"
 '    }' | Add-Content $file
 '  }' | Add-Content $file
 '}' | Add-Content $file
+
+$file = "DBHandler.cs"
+'using ' + $project + 'NS;' | Add-Content $file
+Add-Content -Path $file -Value (Get-Content $path\cp\Objects\DBHandler.cs)
 cd .. | Out-Null
 
 cd Tests | Out-Null
